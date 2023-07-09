@@ -3,46 +3,35 @@ import customtkinter as ctk
 from tkinter import messagebox
 import tkinter as tk
 import time
+import toml
+
+
+config = {}
+#Getting configurations
+with open('settings.toml', 'r') as f:
+    config = toml.load(f)
 
 
 #Setting appearance of the GUI
 ctk.set_appearance_mode("Dark")  
 ctk.set_default_color_theme("blue")
+
 appWidth, appHeight = 600, 700
 
 #timer variables
-minutes = 10
-seconds = 0
+#TODO create a GUI that can modify these values dynamically
+minutes = config['timer']['minutes']
+seconds = config['timer']['seconds']
 
-class App(ctk.CTk):
-    def __init__(self):
-        super().__init__()
-
-        self.title("my app")
-        self.geometry("400x150")
-        self.grid_columnconfigure((0, 1), weight=1)
-
-        self.button = ctk.CTkButton(self, text="my button", command=self.button_callback)
-        self.button.grid(row=0, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
-        self.checkbox_1 = ctk.CTkCheckBox(self, text="checkbox 1")
-        self.checkbox_1.grid(row=1, column=0, padx=20, pady=(0, 20), sticky="w")
-        self.checkbox_2 = ctk.CTkCheckBox(self, text="checkbox 2")
-        self.checkbox_2.grid(row=1, column=1, padx=20, pady=(0, 20), sticky="w")
-        
-    def button_callback(self):
-        
-        print("button pressed")
-
-
-
-
-
-
+#Scoreboar App GUI declarations and Grid Layout
 class ScoreBoard(ctk.CTk):
     def __init__(self, fg_color: str | Tuple[str, str] | None = None, **kwargs):
         super().__init__(fg_color, **kwargs)
+        
+        #Windows Form Dimensions
         self.geometry("1920x1080")
         self.grid_columnconfigure((0, 3), weight=1)
+        
         #Timer Label
         self.sbtitle = ctk.CTkLabel(self,
                                 text="SCOREBOARD TIMER", 
@@ -56,12 +45,22 @@ class ScoreBoard(ctk.CTk):
         
         #Timer variables
         self.scoreboard_frame = ctk.CTkFrame(self)
-        self.scoreboard_frame.grid(row=1, column=2, padx=10, pady=(10, 0),
-                                 sticky="ew")
+        self.scoreboard_frame.grid(row=1, 
+                                   column=2, 
+                                   padx=10, 
+                                   pady=(10, 0),
+                                   sticky="ew")
         self.total_seconds = minutes * 60 + seconds
         self.paused = False
         
-        self.firstteam = ctk.CTkLabel(self,
+        
+        self.teamonename_frame = ctk.CTkFrame(self)
+        self.teamonename_frame.grid(row=1, 
+                                   column=0, 
+                                   padx=10, 
+                                   pady=(10, 0))
+        
+        self.firstteam = ctk.CTkLabel(self.teamonename_frame,
                                 text="Wolfpack", 
                                 font=("Arial Black", 84),
                                 text_color = ("#ffffff"))
@@ -83,7 +82,13 @@ class ScoreBoard(ctk.CTk):
                           sticky="ew", 
                           columnspan=1)
         
-        self.secondteam = ctk.CTkLabel(self,
+        
+        self.teamonetwo_frame = ctk.CTkFrame(self)
+        self.teamonetwo_frame.grid(row=1, 
+                                   column=3, 
+                                   padx=10, 
+                                   pady=(10, 0))
+        self.secondteam = ctk.CTkLabel(self.teamonetwo_frame,
                                 text="BallDogs", 
                                 font=("Arial Black", 84),
                                 text_color = ("#ffffff"))
@@ -152,7 +157,7 @@ class ScoreBoard(ctk.CTk):
         self.sbtitle.grid(row=5, 
                           column=1, 
                           padx=20, 
-                          pady=20, 
+                          pady=10, 
                           sticky="nsew", 
                           columnspan=2)
         
@@ -195,20 +200,8 @@ class ScoreBoard(ctk.CTk):
                           pady=20, 
                           sticky="nsew", 
                           columnspan=2)
-        
-        
-        """
-        
-        self.start_button = ctk.CTkButton(self, text="Start", command=self.start_timer)
-        self.start_button.grid(row=2, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
-        
-        self.pause_button = ctk.CTkButton(self, text="Pause", command=self.pause_timer, state=ctk.DISABLED)
-        self.pause_button.pack(pady=10)
-        self.reset_button = ctk.CTkButton(self, text="Reset", command=self.reset_timer, state=ctk.DISABLED)
-        self.reset_button.pack(pady=10)"""
-
+        self.paused = True
         self.update_timer()
-
         self.mainloop()
 
     def update_timer(self):
@@ -252,11 +245,9 @@ def countdown_timer(minutes, seconds):
         print(f"Time remaining: {mins:02d}:{secs:02d}")
         time.sleep(1)  # Pause for 1 second
         total_seconds -= 1
-
     print("Time's up!")       
 
 
 if __name__ == "__main__":
-    
     app = ScoreBoard()
     app.mainloop()
