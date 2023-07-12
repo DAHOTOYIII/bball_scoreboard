@@ -1,0 +1,14 @@
+[custom_theme]
+path = "pc_scoreboard/ctk-theme/custom_theme.json"
+
+[app_form]
+height = 1920
+width = 1080
+
+[timer]
+minutes = 1
+seconds = 0
+
+
+
+
