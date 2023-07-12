@@ -12,9 +12,7 @@ with open('settings.toml', 'r') as f:
     config = toml.load(f)
 
 
-#Setting appearance of the GUI
-#ctk.set_default_color_theme = ("blue")
-#ctk.set_appearance_mode("dark")  
+#Setting appearance of the GUI 
 ctk.set_default_color_theme("pc_scoreboard/ctk-theme/custom_theme.json")
 
 
@@ -77,7 +75,7 @@ class ScoreBoard(ctk.CTk):
         
         self.timerLabel = ctk.CTkLabel(self.scoreboard_frame,
                                 text="12:00", 
-                                font=("Bahnschrift SemiCondensed", 200),
+                                font=("Bahnschrift SemiCondensed", 150),
                                 text_color = ("red"))
         self.timerLabel.grid(row=1, 
                           column=1, 
@@ -205,7 +203,7 @@ class ScoreBoard(ctk.CTk):
                           pady=20, 
                           sticky="nsew", 
                           columnspan=2)
-        self.paused = False
+        
         self.update_timer()
         self.mainloop()
 
@@ -251,8 +249,3 @@ def countdown_timer(minutes, seconds):
         time.sleep(1)  # Pause for 1 second
         total_seconds -= 1
     print("Time's up!")       
-
-
-if __name__ == "__main__":
-    app = ScoreBoard()
-    app.mainloop()
