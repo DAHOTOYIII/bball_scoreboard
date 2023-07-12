@@ -23,37 +23,45 @@ appWidth = config['app_form']['width']
 
 #Scoreboar App GUI declarations and Grid Layout
 class ScoreBoard(ctk.CTk):
+    """This class will render the main basketball score board that will be display on the main screen
+
+    Args:
+        ctk (class): inheriting the customtkinter class
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
         #Windows Form Dimensions
         self.geometry(f"{appHeight}x{appWidth}")
-        self.grid_columnconfigure((0, 3), weight=1)
+        self.grid_columnconfigure((0, 8), weight=1)
         
         
         #Timer Label
         self.sbtitle = ctk.CTkLabel(self, text="SCOREBOARD TIMER", font=("Helvetica", 32), text_color = "white")
-        self.sbtitle.grid(row=0, column=1, padx=20, pady=20, columnspan=2, sticky="ew")
+        self.sbtitle.grid(row=0, column=3, padx=20, pady=20, columnspan=3, sticky="ew")
         
-        #Timer variables
+        #Timer Frane
         self.scoreboard_frame = ctk.CTkFrame(self, fg_color = "black", border_width= 5, border_color=("white"))
-        self.scoreboard_frame.grid(row=1, column=2, padx=10, pady=(10, 0), sticky="ew")
+        self.scoreboard_frame.grid(row=1, column=3, padx=10, columnspan=3,pady=(10, 0), sticky="ew")
+        
+        #Timer Countdown
+        self.timerLabel = ctk.CTkLabel(self.scoreboard_frame, text="12:00", font=("Bahnschrift SemiCondensed", 150), text_color = ("red"))
+        self.timerLabel.grid(row=1, column=1, padx=40, pady=20, sticky="ew", columnspan=3, rowspan = 3)
         
         
-        
-        
+        #First Team Label Frame
         self.teamonename_frame = ctk.CTkFrame(self, fg_color = "black", border_width= 5, border_color=("white"))
-        self.teamonename_frame.grid(row=1, column=0, padx=10, pady=(10, 0))
+        self.teamonename_frame.grid(row=1, column=0, padx=10, columnspan=3, pady=(10, 0))
         
         self.firstteam = ctk.CTkLabel(self.teamonename_frame, text="Wolfpack", font=("Arial Black", 84), text_color = ("#ffffff"))
-        self.firstteam.grid(row=1, column=0, padx=40, pady=20, sticky="nsew", columnspan=1)
+        self.firstteam.grid(row=1, column=0, padx=10, columnspan=3, pady=20, sticky="nsew")
         
-        self.timerLabel = ctk.CTkLabel(self.scoreboard_frame, text="12:00", font=("Bahnschrift SemiCondensed", 150), text_color = ("red"))
-        self.timerLabel.grid(row=1, column=1, padx=40, pady=20, sticky="ew", columnspan=1, rowspan = 3)
+
         
         
         self.teamonetwo_frame = ctk.CTkFrame(self, fg_color = "black", border_width= 5, border_color=("white"))
-        self.teamonetwo_frame.grid(row=1, column=3, padx=10, pady=(10, 0))
+        self.teamonetwo_frame.grid(row=1, column=6, padx=10, pady=(10, 0))
+        
         self.secondteam = ctk.CTkLabel(self.teamonetwo_frame, text="BallDogs", font=("Arial Black", 84),text_color = ("#ffffff"))
         self.secondteam.grid(row=1, column=3, padx=40, pady=20, sticky="nsew", columnspan=1)
         
@@ -84,6 +92,7 @@ class ScoreBoard(ctk.CTk):
         
         self.sbtitle = ctk.CTkLabel(self,text="4", font=("Helvetica", 85))
         self.sbtitle.grid(row=5, column=0, padx=20, pady=20, sticky="nsew", columnspan=1)
+        
         self.sbtitle = ctk.CTkLabel(self,text="FOULS", font=("Helvetica", 32))
         self.sbtitle.grid(row=4, column=3, padx=20, pady=20, sticky="nsew", columnspan=2)
         
