@@ -40,7 +40,7 @@ class ScoreBoard(ctk.CTk):
         self.sbtitle = ctk.CTkLabel(self, text="SCOREBOARD TIMER", font=("Helvetica", 32), text_color = "white")
         self.sbtitle.grid(row=0, column=3, padx=20, pady=20, columnspan=3, sticky="ew")
         
-        #Timer Frane
+        #Timer Frame
         self.scoreboard_frame = ctk.CTkFrame(self, fg_color = "black", border_width= 5, border_color=("white"))
         self.scoreboard_frame.grid(row=1, column=3, padx=10, columnspan=3,pady=(10, 0), sticky="ew")
         
@@ -55,9 +55,7 @@ class ScoreBoard(ctk.CTk):
         
         self.firstteam = ctk.CTkLabel(self.teamonename_frame, text="Wolfpack", font=("Arial Black", 84), text_color = ("#ffffff"))
         self.firstteam.grid(row=1, column=0, padx=10, columnspan=3, pady=20, sticky="nsew")
-        
 
-        
         
         self.teamonetwo_frame = ctk.CTkFrame(self, fg_color = "black", border_width= 5, border_color=("white"))
         self.teamonetwo_frame.grid(row=1, column=6, padx=10, pady=(10, 0))
